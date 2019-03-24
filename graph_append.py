@@ -16,14 +16,15 @@ class graph_set():
                 start_node = int(line.split(',')[4])
                 end_node = int(line.split(',')[5])
                 speed_limit  = int(line.split(',')[2])
+                road_id = int(line.split(',')[0].strip('('))#道路id
                 nodelist.append(start_node)
                 nodelist = list(set(nodelist))
                 #print (nodelist)
                 g.add_nodes_from(nodelist)
-                weight = float(int(line.split(',')[1]))
+                weight = float(int(line.split(',')[1]))#道路长度
                 is_double = line.split(',')[6].strip().strip(')')
                 if is_double =='1':
-                    g.add_edges_from([(start_node,end_node,{'weight':weight,'speed_limit':speed_limit}),(end_node,start_node,{'weight':weight,'speed_limit':speed_limit})])
+                    g.add_edges_from([(start_node,end_node,{'weight':weight,'speed_limit':speed_limit,'road_id':road_id}),(end_node,start_node,{'weight':weight,'speed_limit':speed_limit})])
                     #print ('double')
                 else :
                     g.add_weighted_edges_from([(start_node,end_node,weight)])
